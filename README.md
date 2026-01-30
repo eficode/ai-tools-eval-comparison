@@ -25,14 +25,14 @@ Tools/
 ```
 
 ## Files In This Repo
-- [Robot Framework Test Generation comparison - TEMPLATE.md](Robot%20Framework%20Test%20Generation%20comparison%20-%20TEMPLATE.md): The scoring matrix the assistant will fill.
+- [AI tools comparison-TEMPLATE.md](AI%20tools%20comparison-TEMPLATE.md): The scoring matrix the assistant will fill.
 - Documentation reference (validation): [RF-docs-MCP-server/rf_docs_server.py](RF-docs-MCP-server/rf_docs_server.py) and [RF-docs-MCP-server/generate_library_docs.sh](RF-docs-MCP-server/generate_library_docs.sh).
    
 ## How To Run The Comparison
 1) Prepare folders: Add one folder per tool under `Tools/` with `chat/`, `robot_tests/`, `robot_results/`, and the tool’s standards files.
 2) Create your comparison round file:
 ```bash
-cp "Robot Framework Test Generation comparison - TEMPLATE.md" "Robot Framework Test Generation comparison - Round x.md"
+cp "AI tools comparison-TEMPLATE.md" "AI tools comparison - Round x - Model y.md"
 ```
 3) Initialize RF docs and services (MCP-ready):
 
