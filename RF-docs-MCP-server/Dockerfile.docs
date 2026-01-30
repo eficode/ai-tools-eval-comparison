@@ -1,0 +1,55 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Node.js is required by robotframework-browser's bridge (browsers not needed for docs)
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates gnupg bash \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs=20.19.6-1nodesource1 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install required Python packages: MCP, Robot Framework core + libraries
+RUN pip install --no-cache-dir \
+    mcp \
+    robotframework==7.4.1 \
+    robotframework-browser==19.12.3 \
+    robotframework-requests==0.9.7
+
+# Copy the documentation server and the library docs generator
+COPY rf_docs_server.py /app/
+COPY generate_library_docs.sh /app/generate_library_docs.sh
+
+# Prepare directories and permissions
+RUN mkdir -p /cache /app/docs && chmod 777 /cache /app/docs \
+    && chmod +x /app/generate_library_docs.sh
+
+# Set environment variables for cache and docs location
+ENV RF_DOCS_CACHE=/cache
+ENV RF_LIBRARY_DOCS=/app/docs
+
+# Initialization script: fetch RF docs once and generate library docs once, then idle
+RUN echo '#!/bin/bash\n\
+set -euo pipefail\n\
+echo "Starting unified docs initialization..."\n\
+if [ ! -f /cache/.docs_initialized ]; then\n\
+    echo "Fetching Robot Framework 7.4.1 documentation..."\n\
+    python -c "import sys; sys.path.insert(0, \"/app\"); from rf_docs_server import fetch_rf_documentation; result = fetch_rf_documentation(force_refresh=false); print(\"Documentation fetched:\", result.get(\"success\"))" || true\n\
+    touch /cache/.docs_initialized\n\
+    echo "Core documentation initialized"\n\
+else\n\
+    echo "Core documentation already initialized; skipping"\n\
+fi\n\
+if [ ! -f /app/docs/.libs_initialized ]; then\n\
+    echo "Generating Robot Framework library documentation..."\n\
+    /app/generate_library_docs.sh || true\n\
+    touch /app/docs/.libs_initialized\n\
+    echo "Library documentation initialized"\n\
+else\n\
+    echo "Library documentation already initialized; skipping"\n\
+fi\n\
+echo "Initialization complete. Idling..."\n\
+tail -f /dev/null\n\
+' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
+
+# Use the initialization script as entrypoint
+CMD ["/app/entrypoint.sh"]

@@ -1,0 +1,24 @@
+# Compose specification
+
+services:
+  # Unified Robot Framework Documentation MCP Server
+
+  # Robot Framework 7.4.1 Documentation MCP Server
+  rf-docs-mcp:
+    build:
+      context: ./RF-docs-MCP-server
+      dockerfile: Dockerfile.docs
+    container_name: rf-docs-mcp
+    volumes:
+      - rf_docs_cache:/cache
+      - rf_library_docs:/app/docs:rw
+    environment:
+      - RF_DOCS_CACHE=/cache
+    stdin_open: true
+    tty: true
+    # Use default CMD from Dockerfile.docs (initializes docs then idles)
+
+volumes:
+  rf_docs_cache:
+  rf_library_docs:
+
