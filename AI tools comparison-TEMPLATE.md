@@ -90,7 +90,7 @@ Schedule: Results in [DATE]
 - Environment: same BASE_URL, CI runner, Browser=chromium, RequestsLibrary sessions or equivalent.
 - Libraries: Browser/RequestsLibrary preferred; curl/Process acceptable but penalize for portability if flaky.
 - No manual DB resets; tests must clean up state via API.
-- Syntax: Modern RF 7.x syntax preferred (VAR, RETURN, IF/WHILE/TRY, Test Tags) over deprecated patterns (Set Variable, [Return], Run Keyword If, Force Tags).
+- Syntax: Modern RF 7.4.1 syntax preferred (VAR, RETURN, IF/WHILE/TRY, Test Tags) over deprecated patterns (Set Variable, [Return], Run Keyword If, Force Tags).
 
 ## Dataset and Scenarios
 
@@ -109,6 +109,7 @@ Schedule: Results in [DATE]
 - Do use waits over sleeps; justify any Sleep with async reasons.
 - Don’t embed Gherkin inside keyword bodies; keep GWT only in Test Cases.
 - Don’t hardcode environment-specific paths; use variables/resources.
+- Don’t use the Log keyword as the sole action within a functional test step. Every step must perform a tangible action or a verifiable assertion using library keywords.
 
 ## Criteria Relevance Check
 
@@ -171,6 +172,7 @@ Schedule: Results in [DATE]
 | Selector stability (data-testid > role > text > CSS)        |          |          |          |          |
 | RequestsLibrary session management (Create/Use Session)     |          |          |          |          |
 | Assertions validate correct outcomes                        |          |          |          |          |
+| Avoids meaningless "Log" steps instead of actual assertions |          |          |          |          | 
 | Proper assertion types (Should Be Equal vs Should Contain)  |          |          |          |          |
 | Domain logic accuracy (books, categories, favorites)        |          |          |          |          |
 | Category Subtotal (avg)                                     |          |          |          |          |
@@ -218,12 +220,12 @@ Schedule: Results in [DATE]
 
 9. Usability & CI Integration (2%)
 
-| Criteria                                              | [Tool 1] | [Tool 2] | [Tool 3] | [Tool 4] |
-| ----------------------------------------------------- | -------- | -------- | -------- | -------- |
+| Criteria                                                 | [Tool 1] | [Tool 2] | [Tool 3] | [Tool 4] |
+| ---------------------------------------------------------| -------- | -------- | -------- | -------- |
 | Containerized CI readiness (artifacts, exit codes, envs) |          |          |          |          |
-| Easy to use with existing workflow                    |          |          |          |          |
-| Minimal manual fixes required                         |          |          |          |          |
-| Category Subtotal (avg)                               |          |          |          |          |
+| Easy to use with existing workflow                       |          |          |          |          |
+| Minimal manual fixes required                            |          |          |          |          |
+| Category Subtotal (avg)                                  |          |          |          |          |
 
 10. Static Code Quality - Robocop Analysis (10%)
 
