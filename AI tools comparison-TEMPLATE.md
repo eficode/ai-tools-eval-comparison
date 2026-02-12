@@ -273,8 +273,8 @@ Schedule: Results in [DATE]
 Total Score (100%) = Sum of (Category Weight × Category Average Score)
 
 **Category Weights:**
-1. Test Quality & Structure: 20%
-2. Maintainability & Modularity: 20%
+1. Test Quality & Structure: 15%
+2. Maintainability & Modularity: 15%
 3. Coverage: 10%
 4. Correctness: 15%
 5. Execution Quality: 10%
@@ -285,7 +285,7 @@ Total Score (100%) = Sum of (Category Weight × Category Average Score)
 10. Static Code Quality (Robocop): 10%
 11. Test Suite Volume & Missing Cases: 5%
 
-**Total: 110% (Normalized to 100%)**
+**Total: 100%**
 
 ## Robocop Audit Reference
 
@@ -331,9 +331,4 @@ Tools should be evaluated against Robocop 7.2.0 static analysis. Key violation c
 - Session management: Create Session → Use *On Session keywords
 - Proper cleanup: Delete All Sessions in teardown
 - Response validation: Status Should Be, Response Body Should Contain
-
-**Tool-Specific Context:**
-- GitLab Duo: .gitlab/duo/project-context.md, workflow-context.md, mr-review-instructions.md, code-standards.md
-- GitHub Copilot: .github/copilot/review-guide.md, standards.md, workflow.md, architecture.md, context.md
-- Amazon Q: .amazonq/rules/project-context.yaml, workflow-context.yaml, mr-review-instructions.yaml, code-standards.yaml
 

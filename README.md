@@ -17,7 +17,7 @@ Tools/
       robot_tests/
       robot_results/
       .github/
-   AmazonQ/
+   Amazon Q/
       chat/
       robot_tests/
       robot_results/
