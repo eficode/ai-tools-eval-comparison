@@ -1,6 +1,6 @@
 # AI tool chat history
-Tools/chat/*
-!Tools/chat/.gitkeep
+Tools/*/chat/*
+!Tools/*/chat/.gitkeep
 
 # Environment variables - Local overrides only
 # .env is committed with defaults; .env.local is for personal overrides
