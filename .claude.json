@@ -1,0 +1,14 @@
+{
+    "mcpServers": {
+        "docs": {
+            "command": "/usr/bin/docker",
+            "args": [
+                "exec",
+                "-i",
+                "rf-docs-mcp",
+                "python",
+                "/app/rf_docs_server.py"
+            ]
+        }
+    }
+}
